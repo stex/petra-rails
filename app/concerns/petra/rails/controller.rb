@@ -15,8 +15,26 @@ module Petra
         # @param [Hash] options
         #   See ActionController::Base#around_action
         #
+        # @option options [Symbol, String, Proc] :with_session_key ('petra_transaction_id')
+        #   Specifies the session key the current transaction identifier is saved as.
+        #   If a symbol is given, a method with the same name has to exist,
+        #   If a string is given, it will be used as static session key
+        #   If a proc is given, it will receive the current controller instance as argument
+        #
         def use_petra_transaction(**options)
-          around_action :petra_transaction, options
+          with_session_key = options.delete(:with_session_key) || 'petra_transaction_id'
+
+          around_action options do |controller, action|
+            session_key = case with_session_key
+                            when Symbol
+                              controller.send(with_session_key)
+                            when Proc
+                              with_session_key.call(controller)
+                            else
+                              with_session_key.to_sym
+                          end
+            petra_transaction(session_key, &action)
+          end
         end
 
         #
@@ -37,8 +55,8 @@ module Petra
       # TODO: Add a kind of retry-mechanism, so multiple exceptions might be handled in one action, e.g. multiple ReadIntegrityErrors.
       #    It works as it is, but it might take several redirects.
       #
-      def petra_transaction(&block)
-        ::Petra.transaction(identifier: session[:transaction_id]) do
+      def petra_transaction(session_key = :petra_transaction_id, &block)
+        session[session_key.to_sym] = ::Petra.transaction(identifier: session[session_key.to_sym]) do
           # Open an inner begin/rescue to catch exception while staying inside of the transaction
           begin
             block.call
