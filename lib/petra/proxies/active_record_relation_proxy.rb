@@ -3,6 +3,8 @@ module Petra
     class ActiveRecordRelationProxy < Petra::Proxies::ObjectProxy
 
       CLASS_NAMES = %w(ActiveRecord::Relation).freeze
+      include Enumerable
+      include Petra::Proxies::EnumerableProxy::InstanceMethods
 
       #
       # Method which is called e.g. by Model/Relation.all.
