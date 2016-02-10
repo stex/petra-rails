@@ -59,7 +59,7 @@ module Petra
       #    Alternative: Use continuations package ("continuation")
       #
       def petra_transaction(session_key = :petra_transaction_id, &block)
-        session[session_key.to_sym] = ::Petra.transaction(identifier: session[session_key.to_sym]) do
+        session[session_key.to_sym] = Petra.transaction(identifier: session[session_key.to_sym]) do
           # Open an inner begin/rescue to catch exception while staying inside of the transaction
           begin
             block.call
