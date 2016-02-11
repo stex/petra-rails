@@ -2,6 +2,18 @@ module Petra
   module Rails
     module PersistenceAdapters
       class ActiveRecordAdapter < Petra::PersistenceAdapters::Adapter
+
+        # TODO: change this to use e.g. the field accessors
+        class << self
+          def lock_type
+            @lock_type || 'index_based'
+          end
+
+          def lock_type=(new_value)
+            @lock_type = new_value
+          end
+        end
+
         def persist!
           return true if queue.empty?
 
@@ -91,9 +103,9 @@ module Petra
           begin
             if suspend
               success = false
-              success = sleep(1) && Petra::Rails::Lock.acquire(lock_identifier) until success
+              success = sleep(1) && self.class.lock_model.acquire(lock_identifier) until success
             else
-              fail Petra::LockError unless Petra::Rails::Lock.acquire(lock_identifier)
+              fail Petra::LockError unless self.class.lock_model.acquire(lock_identifier)
             end
 
             Petra.logger.debug "Acquired Lock: #{lock_identifier}", :purple
@@ -106,6 +118,19 @@ module Petra
           end
         end
 
+        #
+        # Determines the correct model for Lock entries
+        #
+        def self.lock_model
+          case lock_type.to_s
+            when 'index_based'
+              Petra::Rails::IndexedLock
+            when 'update_based'
+              Petra::Rails::Lock
+            else
+              fail Petra::ConfigurationError, "The lock type '#{lock_type}' is invalid."
+          end
+        end
       end
     end
   end
