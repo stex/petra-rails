@@ -112,7 +112,7 @@ module Petra
             @held_locks << lock_identifier
             block.call
           ensure
-            Petra::Rails::Lock.release(lock_identifier)
+            self.class.lock_model.release(lock_identifier)
             @held_locks.delete(lock_identifier)
             Petra.logger.debug "Released Lock: #{lock_identifier}", :cyan
           end
