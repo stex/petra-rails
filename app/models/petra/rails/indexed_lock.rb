@@ -5,8 +5,7 @@ module Petra::Rails
       def acquire(identifier)
         create(:identifier => identifier)
         true
-      rescue
-        ActiveRecord::RecordNotUnique
+      rescue ActiveRecord::RecordNotUnique
         false
       end
 

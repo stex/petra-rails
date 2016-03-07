@@ -52,12 +52,6 @@ module Petra
       # It automatically saves the current identifier in the session and will
       # continue the transaction with the next call.
       #
-      # TODO: Add a kind of retry-mechanism, so multiple exceptions might be handled in one action, e.g. multiple ReadIntegrityErrors.
-      #    It works as it is, but it might take several redirects.
-      #    Reminder: `retry` would start again after `begin`,
-      #              `redo` would restart the Petra.transaction block execution (not the block.call!)
-      #    Alternative: Use continuations package ("continuation")
-      #
       def petra_transaction(session_key = :petra_transaction_id, &block)
         session[session_key.to_sym] = Petra.transaction(identifier: session[session_key.to_sym]) do
           # Open an inner begin/rescue to catch exception while staying inside of the transaction

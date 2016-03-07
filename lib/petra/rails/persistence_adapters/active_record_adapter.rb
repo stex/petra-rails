@@ -5,12 +5,12 @@ module Petra
 
         # TODO: change this to use e.g. the field accessors
         class << self
-          def lock_type
-            @lock_type || 'index_based'
+          def lock_strategy
+            @lock_strategy || 'index_based'
           end
 
-          def lock_type=(new_value)
-            @lock_type = new_value
+          def lock_strategy=(new_value)
+            @lock_strategy = new_value
           end
         end
 
@@ -122,13 +122,13 @@ module Petra
         # Determines the correct model for Lock entries
         #
         def self.lock_model
-          case lock_type.to_s
+          case lock_strategy.to_s
             when 'index_based'
               Petra::Rails::IndexedLock
             when 'update_based'
               Petra::Rails::Lock
             else
-              fail Petra::ConfigurationError, "The lock type '#{lock_type}' is invalid."
+              fail Petra::ConfigurationError, "The lock strategy '#{lock_strategy}' is invalid."
           end
         end
       end
