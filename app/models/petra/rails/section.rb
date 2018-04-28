@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Petra::Rails
   class Section < ActiveRecord::Base
     has_many :log_entries,

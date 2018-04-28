@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Petra::Rails
   class IndexedLock < ActiveRecord::Base
 

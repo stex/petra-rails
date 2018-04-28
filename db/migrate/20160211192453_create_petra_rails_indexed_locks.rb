@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CreatePetraRailsIndexedLocks < ActiveRecord::Migration
   def change
     create_table :petra_rails_indexed_locks do |t|

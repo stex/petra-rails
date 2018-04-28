@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Petra::Rails
   class Lock < ActiveRecord::Base
     scope :with_identifier, -> (identifier) { where(:identifier => identifier) }

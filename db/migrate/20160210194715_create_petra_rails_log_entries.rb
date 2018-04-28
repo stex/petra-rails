@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CreatePetraRailsLogEntries < ActiveRecord::Migration
   def change
     create_table :petra_rails_log_entries do |t|

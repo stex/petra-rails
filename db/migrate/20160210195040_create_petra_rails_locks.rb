@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CreatePetraRailsLocks < ActiveRecord::Migration
   def change
     create_table :petra_rails_locks do |t|

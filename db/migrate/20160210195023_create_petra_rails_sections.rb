@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CreatePetraRailsSections < ActiveRecord::Migration
   def change
     create_table :petra_rails_sections do |t|
