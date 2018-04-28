@@ -3,7 +3,7 @@
 module Petra
   module Rails
     module PersistenceAdapters
-      class ActiveRecordAdapter < Petra::PersistenceAdapters::Adapter
+      class ActiveRecordAdapter < ::Petra::PersistenceAdapters::Adapter
 
         # TODO: change this to use e.g. the field accessors
         class << self

@@ -1,5 +1,11 @@
 # frozen_string_literal: true
 
+require 'rails'
+
+require 'petra/persistence_adapters/adapter'
+require 'petra/proxies/object_proxy'
+require 'petra/proxies/enumerable_proxy'
+
 require 'petra/rails/engine'
 require 'petra/rails/persistence_adapters/active_record_adapter'
 
