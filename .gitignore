@@ -1,26 +1,11 @@
-### Rails template
-*.rbc
-capybara-*.html
-.rspec
-/log
-/tmp
-/db/*.sqlite3
-/db/*.sqlite3-journal
-/public/system
+/.bundle/
+/.yardoc
+/_yardoc/
 /coverage/
-/spec/tmp
-**.orig
-rerun.txt
-pickle-email-*.html
+/doc/
+/pkg/
+/spec/reports/
+/tmp/
 
-
-## Environment normalisation:
-/.bundle
-/vendor/bundle
-
-# these should all be checked in to normalise the environment:
-.ruby-version
-.ruby-gemset
-
-# IDE
-/.idea/
+# rspec failure tracking
+.rspec_status

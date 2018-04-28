@@ -1,0 +1,83 @@
+AllCops:
+  TargetRubyVersion: 2.5
+
+# Max line length
+LineLength:
+  Max: 120
+
+#--------------------------------------------------
+#                     Layout
+#--------------------------------------------------
+
+Layout/EmptyLinesAroundModuleBody:
+  Enabled: false
+
+# Hashes do not need padding
+Layout/SpaceInsideHashLiteralBraces:
+  Enabled: false
+
+# Allow 2 space indentation for when inside a case
+Layout/CaseIndentation:
+  Enabled: false
+
+# Allow empty lines in classes
+Layout/EmptyLinesAroundClassBody:
+  Enabled: false
+
+#--------------------------------------------------
+#                     Style
+#--------------------------------------------------
+
+# Don't require a _ to split an integer like 1000.
+Style/NumericLiterals:
+  Enabled: false
+
+# Not all modules have to have top level comments
+Style/Documentation:
+  Enabled: false
+
+# Allow fail/raise differentiation
+Style/SignalException:
+  Enabled: false
+
+Style/DoubleNegation:
+  Enabled: false
+
+Style/ParallelAssignment:
+  Enabled: false
+
+#--------------------------------------------------
+#                     Metrics
+#--------------------------------------------------
+
+# Allow bigger classes
+Metrics/ClassLength:
+  Enabled: false
+
+# Allow bigger modules
+Metrics/ModuleLength:
+  Enabled: false
+
+Metrics/MethodLength:
+  Enabled: false
+
+Metrics/AbcSize:
+  Enabled: false
+
+Metrics/CyclomaticComplexity:
+  Enabled: false
+
+Metrics/PerceivedComplexity:
+  Enabled: false
+
+Metrics/BlockLength:
+  Enabled: false
+
+#--------------------------------------------------
+#                      Lint
+#--------------------------------------------------
+
+# Allow rescuing from the exception class, so a Transaction may fail if there is something
+# on a lower level than a StandardError is raised. We are re-raising them anyway.
+Lint/RescueException:
+  Enabled: false
