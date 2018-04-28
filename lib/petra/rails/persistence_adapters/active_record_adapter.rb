@@ -98,9 +98,9 @@ module Petra
           end
         end
 
-        def with_database_lock(identifier, suspend: true, &block)
+        def with_database_lock(identifier, suspend: true)
           lock_identifier = identifier.to_s
-          return block.call if (@held_locks ||= []).include?(lock_identifier)
+          return yield if (@held_locks ||= []).include?(lock_identifier)
 
           begin
             if suspend
@@ -112,7 +112,7 @@ module Petra
 
             Petra.logger.debug "Acquired Lock: #{lock_identifier}", :purple
             @held_locks << lock_identifier
-            block.call
+            yield
           ensure
             self.class.lock_model.release(lock_identifier)
             @held_locks.delete(lock_identifier)
