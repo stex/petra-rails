@@ -8,6 +8,6 @@ class CreatePetraRailsSections < ActiveRecord::Migration
       t.timestamps null: false
     end
 
-    add_index :petra_rails_sections, %i[transaction_identifier savepoint], unique: true, name: :petra_rails_section_transaction_identifier_savepoint
+    add_index :petra_rails_sections, %i[transaction_identifier savepoint], unique: true
   end
 end

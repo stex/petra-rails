@@ -103,7 +103,8 @@ module Petra
 
         # Fail if there are any destroyed objects in the returned collection
         if (destroyed_record = result.find(&:destroyed?))
-          fail ::ActiveRecord::RecordNotFound, "Couldn't find #{name} with '#{primary_key}'=#{destroyed_record.__object_id}"
+          fail ::ActiveRecord::RecordNotFound,
+               "Couldn't find #{name} with '#{primary_key}'=#{destroyed_record.__object_id}"
         end
 
         # To emulate AR's behaviour, return the first result if we only got one.
