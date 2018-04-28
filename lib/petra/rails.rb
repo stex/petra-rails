@@ -15,4 +15,3 @@ end
 
 # Register Persistence Adapters
 Petra::PersistenceAdapters::Adapter.register_adapter(:active_record, Petra::Rails::PersistenceAdapters::ActiveRecordAdapter)
-
