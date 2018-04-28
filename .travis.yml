@@ -2,4 +2,4 @@ sudo: false
 language: ruby
 rvm:
   - 2.5
-before_install: bundle exec rubocop --parallel
+before_script: bundle exec rubocop --parallel
