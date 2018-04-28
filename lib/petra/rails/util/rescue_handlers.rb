@@ -30,7 +30,7 @@ module Petra
         #   Only exceptions that were NOT raised in the given actions are handled
         #
         def register(petra_error, with: nil, only: [], except: [], &block)
-          fail ArgumentError, 'Either a method name or a proc has to be given' unless (with || block_given?)
+          fail ArgumentError, 'Either a method name or a proc has to be given' unless with || block_given?
 
           hash          = {error_class: petra_error.to_s}
           hash[:proc]   = block if block_given?
