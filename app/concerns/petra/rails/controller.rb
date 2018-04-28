@@ -57,11 +57,9 @@ module Petra
       def petra_transaction(session_key = :petra_transaction_id)
         session[session_key.to_sym] = Petra.transaction(identifier: session[session_key.to_sym]) do
           # Open an inner begin/rescue to catch exception while staying inside of the transaction
-          begin
-            yield
-          rescue Petra::PetraError, ActionView::Template::Error => e
-            handle_petra_exception(e)
-          end
+          yield
+        rescue Petra::PetraError, ActionView::Template::Error => e
+          handle_petra_exception(e)
         end
       end
 
