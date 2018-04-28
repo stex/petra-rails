@@ -2,7 +2,7 @@
 
 module Petra::Rails
   class Lock < ActiveRecord::Base
-    scope :with_identifier, -> (identifier) { where(identifier: identifier) }
+    scope :with_identifier, ->(identifier) { where(identifier: identifier) }
     scope :taken, -> { where.not(taken_at: nil) }
     scope :not_taken, -> { where(taken_at: nil) }
 
