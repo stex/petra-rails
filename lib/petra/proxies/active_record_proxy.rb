@@ -11,7 +11,7 @@ module Petra
     # validation errors etc.
     #
     class ActiveRecordProxy < Petra::Proxies::ObjectProxy
-      CLASS_NAMES = %w(ActiveRecord::Base).freeze
+      CLASS_NAMES = %w[ActiveRecord::Base].freeze
 
       #
       # When using ActiveRecord objects, we have a pretty good
