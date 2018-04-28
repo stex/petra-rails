@@ -60,10 +60,10 @@ module Petra
         def exception_handler(exception, controller_instance, action_name:)
           return nil if klass == ActionController::Base
 
-          handler = handlers.find do |handler|
-            next false unless handler[:error_class] == exception.class.to_s
-            next false if handler[:only].any? && !handler[:only].include?(action_name.to_sym)
-            !handler[:except].include?(action_name.to_sym)
+          handler = handlers.find do |h|
+            next false unless h[:error_class] == exception.class.to_s
+            next false if h[:only].any? && !h[:only].include?(action_name.to_sym)
+            !h[:except].include?(action_name.to_sym)
           end
 
           return handler[:proc] || controller_instance.method(handler[:method]) if handler

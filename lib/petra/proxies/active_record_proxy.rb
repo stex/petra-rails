@@ -179,7 +179,7 @@ module Petra
         return false if method_name =~ /=$/
 
         # Check for (boolean) getter methods
-        return __attribute_reader?($1) if method_name =~ /(.*)\?$/
+        return method_name.match(/(.*)\?$/)[1] if method_name.match?(/(.*)\?$/)
 
         # Check whether the given method name is part
         proxied_object.attributes.keys.include?(method_name.to_s) || super(method_name)

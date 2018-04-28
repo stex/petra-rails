@@ -11,9 +11,7 @@ module Petra
             @lock_strategy || 'index_based'
           end
 
-          def lock_strategy=(new_value)
-            @lock_strategy = new_value
-          end
+          attr_writer :lock_strategy
         end
 
         def persist!
@@ -21,10 +19,12 @@ module Petra
 
           # We currently only allow entries for one transaction in the queue
           with_transaction_lock(queue.first.transaction_identifier) do
+            # rubocop:disable Style/WhileUntilDo
             while (entry = queue.shift) do
               identifier = persist_entry(entry)
               entry.mark_as_persisted!(identifier)
             end
+            # rubocop:enable Style/WhileUntilDo
           end
         end
 
@@ -133,6 +133,8 @@ module Petra
               fail Petra::ConfigurationError, "The lock strategy '#{lock_strategy}' is invalid."
           end
         end
+
+        private_class_method :lock_model
       end
     end
   end
