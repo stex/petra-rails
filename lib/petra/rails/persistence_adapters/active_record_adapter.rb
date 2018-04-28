@@ -36,13 +36,13 @@ module Petra
 
         def savepoints(transaction)
           with_transaction_lock(transaction) do
-            Petra::Rails::Section.where(:transaction_identifier => transaction.identifier).pluck(:savepoint)
+            Petra::Rails::Section.where(transaction_identifier: transaction.identifier).pluck(:savepoint)
           end
         end
 
         def log_entries(section)
           with_transaction_lock(section.transaction) do
-            section = Petra::Rails::Section.find_by(:savepoint => section.savepoint)
+            section = Petra::Rails::Section.find_by(savepoint: section.savepoint)
             return [] unless section
 
             section.log_entries.map do |entry|
@@ -56,7 +56,7 @@ module Petra
         #
         def reset_transaction(transaction)
           with_transaction_lock(transaction) do
-            Petra::Rails::Section.where(:transaction_identifier => transaction.identifier).destroy_all
+            Petra::Rails::Section.where(transaction_identifier: transaction.identifier).destroy_all
           end
         end
 

@@ -25,7 +25,7 @@ module Petra
 
       # Same behaviour as in the original ActiveRecord::Relation to ensure
       # that the correct #to_a is called.
-      delegate :to_ary, :to => :to_a
+      delegate :to_ary, to: :to_a
 
     end
   end

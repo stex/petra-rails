@@ -5,14 +5,14 @@ module Petra::Rails
 
     class << self
       def acquire(identifier)
-        create(:identifier => identifier)
+        create(identifier: identifier)
         true
       rescue ActiveRecord::RecordNotUnique
         false
       end
 
       def release(identifier)
-        delete_all(:identifier => identifier)
+        delete_all(identifier: identifier)
         true
       end
     end
