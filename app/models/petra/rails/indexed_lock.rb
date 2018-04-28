@@ -1,19 +1,21 @@
 # frozen_string_literal: true
 
-module Petra::Rails
-  class IndexedLock < ActiveRecord::Base
+module Petra
+  module Rails
+    class IndexedLock < ActiveRecord::Base
 
-    class << self
-      def acquire(identifier)
-        create(identifier: identifier)
-        true
-      rescue ActiveRecord::RecordNotUnique
-        false
-      end
+      class << self
+        def acquire(identifier)
+          create(identifier: identifier)
+          true
+        rescue ActiveRecord::RecordNotUnique
+          false
+        end
 
-      def release(identifier)
-        delete_all(identifier: identifier)
-        true
+        def release(identifier)
+          delete_all(identifier: identifier)
+          true
+        end
       end
     end
   end
