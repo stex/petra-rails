@@ -11,7 +11,7 @@ module Petra
         def acquire(identifier)
           ensure_lock_existence(identifier)
           affected_rows = not_taken.with_identifier(identifier).update_all(taken_at: Time.now)
-          affected_rows > 0
+          affected_rows.positive?
         end
 
         def release(identifier)
@@ -32,7 +32,6 @@ module Petra
           find_or_create_by(identifier: identifier)
         end
       end
-
     end
   end
 end
