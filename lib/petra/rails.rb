@@ -2,6 +2,7 @@
 
 require 'rails'
 
+require 'petra'
 require 'petra/persistence_adapters/adapter'
 require 'petra/proxies/object_proxy'
 require 'petra/proxies/enumerable_proxy'

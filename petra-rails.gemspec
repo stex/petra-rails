@@ -24,7 +24,8 @@ Gem::Specification.new do |spec|
 
   spec.required_ruby_version = '~> 2.5'
 
-  spec.add_dependency 'rails', '~> 4.2'
+  spec.add_dependency 'petra_core', '~> 0.0.1'
+  spec.add_dependency 'rails', '>= 4.2'
 
   spec.add_development_dependency 'bundler', '~> 1.16'
   spec.add_development_dependency 'byebug'
