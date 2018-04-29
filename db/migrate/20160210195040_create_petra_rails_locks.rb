@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class CreatePetraRailsLocks < ActiveRecord::Migration
+class CreatePetraRailsLocks < ActiveRecord::Migration[4.2]
   def change
     create_table :petra_rails_locks do |t|
       t.string   :identifier, null: false
