@@ -8,6 +8,8 @@ module Petra
       include Enumerable
       include Petra::Proxies::EnumerableProxy::InstanceMethods
 
+      delegate :each, to: :to_a
+
       #
       # Method which is called e.g. by Model/Relation.all.
       # It returns the original collection, but adds all objects of the same type

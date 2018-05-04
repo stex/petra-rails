@@ -22,6 +22,11 @@ module Petra
         !proxied_object.persisted?
       end
 
+      def all
+        class_method!
+        proxied_object.all.petra
+      end
+
       #----------------------------------------------------------------
       #                             CUD
       #----------------------------------------------------------------
@@ -179,7 +184,9 @@ module Petra
         return false if method_name =~ /=$/
 
         # Check for (boolean) getter methods
-        return method_name.match(/(.*)\?$/)[1] if method_name.match?(/(.*)\?$/)
+        if method_name.match?(/(.*)\?$/)
+          return method_name.match(/(.*)\?$/)[1] if __attribute_reader?(method_name.match(/(.*)\?$/)[1])
+        end
 
         # Check whether the given method name is part
         proxied_object.attributes.keys.include?(method_name.to_s) || super(method_name)

@@ -5,11 +5,7 @@ module Petra
     module Controller
       extend ActiveSupport::Concern
 
-      included do
-        extend ClassMethods
-      end
-
-      module ClassMethods
+      class_methods do
         #
         # Helper method to generate an around action to wrap even template
         # rendering into a petra transaction section
