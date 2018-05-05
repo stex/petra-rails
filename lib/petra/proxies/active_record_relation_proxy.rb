@@ -21,14 +21,14 @@ module Petra
       #   of the proxied class which would have to appear in the result set as well.
       #
       def to_a
-        collection = __handlers.handle_missing_method(:to_a) + transaction.objects.created(proxied_object.klass)
+        collection = Petra::Proxies::EnumerableProxy.proxy_entries(__handlers.handle_missing_method(:to_a))
+        collection += transaction.objects.created(proxied_object.klass)
         collection.reject(&:__destroyed?)
       end
 
       # Same behaviour as in the original ActiveRecord::Relation to ensure
       # that the correct #to_a is called.
       delegate :to_ary, to: :to_a
-
     end
   end
 end

@@ -22,11 +22,6 @@ module Petra
         !proxied_object.persisted?
       end
 
-      def all
-        class_method!
-        proxied_object.all.petra
-      end
-
       #----------------------------------------------------------------
       #                             CUD
       #----------------------------------------------------------------
@@ -41,10 +36,7 @@ module Petra
 
         # As attribute changes are done separately, we can safely give `save` as
         # method to apply to the generated log entry instead of the actual method (update_attributes)
-        transaction.log_object_persistence(self, method: 'save')
-
-        # TODO: Validations?
-        true
+        save
       end
 
       def save(*)
@@ -57,7 +49,7 @@ module Petra
 
       # Still Creepy!
       def new(attributes = {})
-        super.tap do |o|
+        super().tap do |o|
           transaction.log_object_initialization(o, method: 'new')
 
           # TODO: nested parameters...
@@ -111,6 +103,9 @@ module Petra
           fail ::ActiveRecord::RecordNotFound,
                "Couldn't find #{name} with '#{primary_key}'=#{destroyed_record.__object_id}"
         end
+
+        # Make sure that everything is a petra proxy from this point on
+        result = result.map { |r| r.petra(inherited: true, configuration_args: ['find']) }
 
         # To emulate AR's behaviour, return the first result if we only got one.
         result.size == 1 ? result.first : result
@@ -182,11 +177,6 @@ module Petra
 
         # Setters are no getters. TODO: is super() necessary here?
         return false if method_name =~ /=$/
-
-        # Check for (boolean) getter methods
-        if method_name.match?(/(.*)\?$/)
-          return method_name.match(/(.*)\?$/)[1] if __attribute_reader?(method_name.match(/(.*)\?$/)[1])
-        end
 
         # Check whether the given method name is part
         proxied_object.attributes.keys.include?(method_name.to_s) || super(method_name)
