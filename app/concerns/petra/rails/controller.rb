@@ -66,8 +66,10 @@ module Petra
       # If no valid handler could be found, the exception is re-raised.
       #
       def handle_petra_exception(error)
-        # Unwrap action_view template errors
-        return handle_petra_exception(error.original_exception) if error.is_a?(ActionView::Template::Error)
+        if error.is_a?(ActionView::Template::Error) && error.respond_to?(:original_exception)
+          # Unwrap action_view template errors# Unwrap action_view template errors
+          return handle_petra_exception(error.original_exception)
+        end
 
         # Try to find a handler for the given exception and execute it
         Petra::Rails::Util::RescueHandlers.for_controller(self.class).handle(error, self, action_name: action_name)
