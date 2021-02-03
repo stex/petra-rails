@@ -1,7 +1,7 @@
 [![Build Status](https://travis-ci.org/Stex/petra-rails.svg?branch=master)](https://travis-ci.org/Stex/petra-rails)
 
 # Petra::Rails
-<img src="https://drive.google.com/uc?id=1BKauBWbE66keL1gBBDfgSaRE0lL5x586&export=download" width="200" align="right" />
+<img src="petra.png" width="200" align="right" />
 
 `petra-rails` is a proof-of-concept to show how to integrate [`petra`](https://github.com/stex/petra) into the Ruby on Rails framework. It allows running transactions over multiple requests
 
